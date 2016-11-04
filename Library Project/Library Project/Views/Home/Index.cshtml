@@ -1,4 +1,4 @@
-﻿
+﻿@model List<Book>
 @{
     Layout = null;
 }
@@ -11,8 +11,11 @@
     <title>Index</title>
 </head>
 <body>
-    <div style="font-size: 300px; background-color:darkgoldenrod; color:blue"> 
-        Library Things
-    </div>
+    @foreach (Book book in Model)
+    {
+        @Html.Partial("_DisplayBookPartialView", book);
+        <br />
+    }
+
 </body>
 </html>
