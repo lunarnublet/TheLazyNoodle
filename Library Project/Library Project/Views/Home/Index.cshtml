@@ -11,6 +11,10 @@
     <title>Index</title>
 </head>
 <body>
+    <nav>
+        <a href="~/Home/Search">Search</a>
+    </nav>
+
     @foreach (Book book in Model)
     {
         @Html.Partial("_DisplayBookPartialView", book);
