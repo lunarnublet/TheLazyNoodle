@@ -5,4 +5,9 @@
 <td>@Model.Title</td>
 <td>@Model.PublishYear</td>
 <td>@Model.Genre</td>
+<td>@foreach (Author author in Model.Authors)
+{
+    @author.LastName@:, @author.FirstName 
+
+}</td>
 
