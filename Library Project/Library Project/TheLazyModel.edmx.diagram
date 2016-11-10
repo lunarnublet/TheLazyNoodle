@@ -6,6 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="4987c0a9622145058a976bfa2131c405" Name="Diagram1">
         <EntityTypeShape EntityType="TheLazyNoodleModel.Book" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheLazyNoodleModel.BookAuthor" Width="1.5" PointX="3.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
