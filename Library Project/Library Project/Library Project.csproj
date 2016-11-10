@@ -187,6 +187,8 @@
     </Content>
     <Content Include="Views\Shared\_DisplayBookPartialView.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Shared\_BookSearchPartialView.cshtml" />
+    <Content Include="Views\Shared\_EditBookPartialView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
