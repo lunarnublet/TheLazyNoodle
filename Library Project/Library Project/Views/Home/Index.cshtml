@@ -9,12 +9,21 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
+    <link rel="stylesheet" href="~/Content/main.css" />
 </head>
 <body>
-    @foreach (Book book in Model)
-    {
-        @Html.Partial("_DisplayBookPartialView", book);
-        <br />
-    }
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Publishing Year</th>
+        </tr>
+        @foreach (Book book in Model)
+            {
+            <tr>
+                @Html.Partial("_DisplayBookPartialView", book)
+            </tr>
+        }
+    </table>
 </body>
 </html>
