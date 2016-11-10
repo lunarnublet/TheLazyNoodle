@@ -131,6 +131,7 @@
     <Content Include="Global.asax" />
     <Content Include="scripts\ai.0.22.19-build00125.js" />
     <Content Include="scripts\ai.0.22.19-build00125.min.js" />
+    <Content Include="Stylez\main.css" />
     <Content Include="TheLazyModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>TheLazyModel.edmx</DependentUpon>
@@ -202,7 +203,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Stylez\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
