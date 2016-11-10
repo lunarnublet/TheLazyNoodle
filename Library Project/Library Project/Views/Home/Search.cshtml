@@ -14,11 +14,7 @@
     <div> 
         @using (Html.BeginForm())
         {
-            <strong>Title: </strong>@Html.TextBoxFor(m => m.Title)<br />
-            <strong>Publish Year: </strong>@Html.TextBoxFor(m => m.PublishYear)<br />
-
-
-            <input type="submit" value="Search" />
+            @Html.Partial("_BookSearchPartialView", Model)
         }
     </div>
 </body>

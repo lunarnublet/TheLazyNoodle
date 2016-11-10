@@ -1,0 +1,11 @@
+﻿@model Book
+<div class="bookForm">
+    @Html.LabelFor(b => b.Title)
+    @Html.TextBoxFor(b => b.Title)
+    @Html.ValidationMessageFor(b => b.Title)
+</div>
+<div class="bookForm">
+    @Html.LabelFor(b => b.PublishYear)
+    @Html.TextBoxFor(b => b.PublishYear)
+    @Html.ValidationMessageFor(b => b.PublishYear)
+</div>
