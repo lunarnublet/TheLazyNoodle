@@ -12,20 +12,19 @@ namespace Library_Project
     using System;
     using System.Collections.Generic;
     
-    public partial class Book
+    public partial class Author
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Book()
+        public Author()
         {
-            this.Authors = new HashSet<Author>();
+            this.Books = new HashSet<Book>();
         }
     
         public int Id { get; set; }
-        public string Title { get; set; }
-        public Nullable<int> PublishYear { get; set; }
-        public string Genre { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Author> Authors { get; set; }
+        public virtual ICollection<Book> Books { get; set; }
     }
 }

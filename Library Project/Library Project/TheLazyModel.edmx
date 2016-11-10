@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="TheLazyNoodleModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Authors">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Book">
           <Key>
             <PropertyRef Name="Id" />
@@ -17,14 +25,47 @@
         <EntityType Name="BookAuthors">
           <Key>
             <PropertyRef Name="BookId" />
-            <PropertyRef Name="Author" />
+            <PropertyRef Name="AuthorId" />
           </Key>
           <Property Name="BookId" Type="int" Nullable="false" />
-          <Property Name="Author" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AuthorId" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK__BookAutho__Autho__534D60F1">
+          <End Role="Authors" Type="Self.Authors" Multiplicity="1" />
+          <End Role="BookAuthors" Type="Self.BookAuthors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authors">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookAuthors">
+              <PropertyRef Name="AuthorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BookAutho__BookI__52593CB8">
+          <End Role="Book" Type="Self.Book" Multiplicity="1" />
+          <End Role="BookAuthors" Type="Self.BookAuthors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookAuthors">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="TheLazyNoodleModelStoreContainer">
+          <EntitySet Name="Authors" EntityType="Self.Authors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BookAuthors" EntityType="Self.BookAuthors" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__BookAutho__Autho__534D60F1" Association="Self.FK__BookAutho__Autho__534D60F1">
+            <End Role="Authors" EntitySet="Authors" />
+            <End Role="BookAuthors" EntitySet="BookAuthors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BookAutho__BookI__52593CB8" Association="Self.FK__BookAutho__BookI__52593CB8">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="BookAuthors" EntitySet="BookAuthors" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -38,19 +79,29 @@
           <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="PublishYear" Type="Int32" />
           <Property Name="Genre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Authors" Relationship="TheLazyNoodleModel.BookAuthors" FromRole="Book" ToRole="Author" />
         </EntityType>
         <EntityContainer Name="TheLazyNoodleEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Books" EntityType="Self.Book" />
-          <EntitySet Name="BookAuthors" EntityType="TheLazyNoodleModel.BookAuthor" />
+          <EntitySet Name="Authors" EntityType="TheLazyNoodleModel.Author" />
+          <AssociationSet Name="BookAuthors1" Association="TheLazyNoodleModel.BookAuthors">
+            <End Role="Author" EntitySet="Authors" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="BookAuthor">
+        <EntityType Name="Author">
           <Key>
-            <PropertyRef Name="BookId" />
-            <PropertyRef Name="Author" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="BookId" Type="Int32" Nullable="false" />
-          <Property Name="Author" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Books" Relationship="TheLazyNoodleModel.BookAuthors" FromRole="Author" ToRole="Book" />
         </EntityType>
+        <Association Name="BookAuthors">
+          <End Type="TheLazyNoodleModel.Author" Role="Author" Multiplicity="*" />
+          <End Type="TheLazyNoodleModel.Book" Role="Book" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -67,14 +118,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="BookAuthors">
-            <EntityTypeMapping TypeName="TheLazyNoodleModel.BookAuthor">
-              <MappingFragment StoreEntitySet="BookAuthors">
-                <ScalarProperty Name="Author" ColumnName="Author" />
-                <ScalarProperty Name="BookId" ColumnName="BookId" />
+          <EntitySetMapping Name="Authors">
+            <EntityTypeMapping TypeName="TheLazyNoodleModel.Author">
+              <MappingFragment StoreEntitySet="Authors">
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="BookAuthors1" TypeName="TheLazyNoodleModel.BookAuthors" StoreEntitySet="BookAuthors">
+            <EndProperty Name="Book">
+              <ScalarProperty Name="Id" ColumnName="BookId" />
+            </EndProperty>
+            <EndProperty Name="Author">
+              <ScalarProperty Name="Id" ColumnName="AuthorId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
