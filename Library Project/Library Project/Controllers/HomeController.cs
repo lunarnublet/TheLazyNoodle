@@ -36,6 +36,11 @@ namespace Library_Project.Controllers
                     List<Book> temp = con.Books.Where(b => b.PublishYear == book.PublishYear).ToList();
                     books = temp.Intersect(books).ToList();
                 }
+                if (book.Genre != null)
+                {
+                    List<Book> temp = con.Books.Where(b => b.Genre == book.Genre).ToList();
+                    books = temp.Intersect(books).ToList();
+                }
             }
             return View("Index", books);
         }

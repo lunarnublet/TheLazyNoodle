@@ -146,10 +146,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Book.cs">
+    <Compile Include="Author.cs">
       <DependentUpon>TheLazyModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="BookAuthor.cs">
+    <Compile Include="Book.cs">
       <DependentUpon>TheLazyModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\HomeController.cs" />
