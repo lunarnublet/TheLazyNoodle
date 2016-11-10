@@ -1,0 +1,25 @@
+﻿@model Book
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Search</title>
+</head>
+<body>
+    <div> 
+        @using (Html.BeginForm())
+        {
+            <strong>Title: </strong>@Html.TextBoxFor(m => m.Title)<br />
+            <strong>Publish Year: </strong>@Html.TextBoxFor(m => m.PublishYear)<br />
+
+
+            <input type="submit" value="Search" />
+        }
+    </div>
+</body>
+</html>
