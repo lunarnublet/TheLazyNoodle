@@ -149,6 +149,9 @@
     <Compile Include="Book.cs">
       <DependentUpon>TheLazyModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="BookAuthor.cs">
+      <DependentUpon>TheLazyModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
