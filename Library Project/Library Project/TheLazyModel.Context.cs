@@ -26,5 +26,6 @@ namespace Library_Project
         }
     
         public virtual DbSet<Book> Books { get; set; }
+        public virtual DbSet<BookAuthor> BookAuthors { get; set; }
     }
 }
