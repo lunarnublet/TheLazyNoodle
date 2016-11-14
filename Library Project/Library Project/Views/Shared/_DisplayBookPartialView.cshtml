@@ -1,12 +1,18 @@
 ﻿@model Book
 
+@{
+    string authors = "";
+    foreach (Author author in Model.Authors)
+    {
+        authors += "[" + @author.LastName + ", " + @author.FirstName + "]";
+
+    }
+
+}
+
 
 <td>@Model.Id</td>
 <td>@Model.Title</td>
-<td>@*@foreach (Author author in Model.Authors)
-{
-    //@author.LastName@:, @author.FirstName 
-
-}*@</td>
+<td>@authors</td>
 <td>@Model.PublishYear</td>
 <td>@Model.Genre</td>
