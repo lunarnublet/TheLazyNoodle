@@ -1,0 +1,14 @@
+﻿@model Author
+@using HtmlHelpers.BeginCollectionItem
+
+@using (Html.BeginCollectionItem("Authors"))
+{
+    <div class="author-form">
+        @Html.LabelFor(a => a.FirstName)
+        @Html.TextBoxFor(a => a.FirstName)
+        @Html.ValidationMessageFor(a => a.FirstName)
+        @Html.LabelFor(a => a.LastName)
+        @Html.TextBoxFor(a => a.LastName)
+        @Html.ValidationMessageFor(a => a.LastName)
+    </div>
+}
