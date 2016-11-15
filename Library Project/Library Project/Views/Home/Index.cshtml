@@ -14,6 +14,7 @@
 <body>
     <nav>
         <a href="~/Home/Search">Search</a>
+        @Html.ActionLink("Add Book", "AddBook", "Book")
     </nav>
     <table>
         <tr>
@@ -22,11 +23,16 @@
             <th>Author(s)</th>
             <th>Publishing Year</th>
             <th>Genre</th>
+            <th></th>
         </tr>
         @foreach (Book book in Model)
             {
             <tr>
                 @Html.Partial("_DisplayBookPartialView", book)
+                <td>
+                    @Html.ActionLink("Edit", "EditBook", "Book", new { id = book.Id }, null)
+                    @Html.ActionLink("Delete", "DeleteBook", "Book", new { id = book.Id }, null)
+                </td>
             </tr>
         }
     </table>

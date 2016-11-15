@@ -1,0 +1,27 @@
+﻿@model Book
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddBook</title>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("AddBook", "Book", FormMethod.Post))
+        {
+            @Html.Partial("_EditBookPartialView", Model)
+            @Html.HiddenFor(model => model.Id)
+            @*foreach (Author a in Model.Authors)
+            {
+                @Html.Partial("_EditAuthorPartialView", a)
+            }*@
+            <input type="submit" value="Save" />
+        }
+    </div>
+</body>
+</html>

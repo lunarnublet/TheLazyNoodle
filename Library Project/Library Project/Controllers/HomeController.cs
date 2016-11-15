@@ -14,7 +14,7 @@ namespace Library_Project.Controllers
             List<Book> books = new List<Book>();
             using (TheLazyNoodleEntities1 con = new TheLazyNoodleEntities1())
             {
-                books = con.Books.ToList();
+                books = con.Books.Include("Authors").ToList();
             }
             return View(books);
         }
@@ -25,7 +25,7 @@ namespace Library_Project.Controllers
             List<Book> books = new List<Book>();
             using (TheLazyNoodleEntities1 con = new TheLazyNoodleEntities1())
             {
-                books = con.Books.ToList();
+                books = con.Books.Include("Authors").ToList();
                 if (book.Title != null && book.Title != "")
                 {
                     List<Book> temp = con.Books.Where(b => b.Title.Contains(book.Title)).ToList();

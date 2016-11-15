@@ -1,0 +1,37 @@
+﻿@model Book
+@using HtmlHelpers.BeginCollectionItem
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EditBook</title>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("EditBook", "Book", FormMethod.Post))
+        {
+            @Html.Partial("_EditBookPartialView", Model)
+            @Html.HiddenFor(model => model.Id)
+            <div id="authors">
+                @*<h3>Authors</h3>
+                @foreach (Author a in Model.Authors)
+                {
+                    @Html.Partial("_EditAuthorPartialView", a)
+                }*@
+            </div>
+            <input type="submit" value="Save Changes" />
+        }
+    </div>
+    @*<script src='@Url.Content("~/Scripts/jquery.validate.js")' type='text/javascript'></script>
+        <script src='@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")' type='text/javascript'></script>*@
+    @*<script>
+            $('form').data('validator', null);
+            $.validator.unobtrusive.parse($('form'));
+        </script>*@
+</body>
+</html>
