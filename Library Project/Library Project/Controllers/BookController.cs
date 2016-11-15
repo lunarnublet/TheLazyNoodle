@@ -25,7 +25,7 @@ namespace Library_Project.Controllers
                 using (TheLazyNoodleEntities1 context = new TheLazyNoodleEntities1())
                 {
                     context.Books.Add(book);
-                    context.SaveChangesAsync();
+                    context.SaveChanges();
                 }
 
                 result = RedirectToAction("Index", "Home");
