@@ -34,7 +34,7 @@ namespace Library_Project.Controllers
             return result;
         }
 
-        [HttpPost]
+        
         public ActionResult DeleteBook(int id)
         {
             using (TheLazyNoodleEntities1 context = new TheLazyNoodleEntities1())
