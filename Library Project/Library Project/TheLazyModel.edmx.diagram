@@ -8,6 +8,8 @@
         <EntityTypeShape EntityType="TheLazyNoodleModel.Book" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TheLazyNoodleModel.Author" Width="1.5" PointX="0.75" PointY="3.875" />
         <AssociationConnector Association="TheLazyNoodleModel.BookAuthors" />
+        <EntityTypeShape EntityType="TheLazyNoodleModel.UserProfile" Width="1.5" PointX="3" PointY="1.25" />
+        <AssociationConnector Association="TheLazyNoodleModel.CheckedBooks" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
