@@ -11,7 +11,14 @@ namespace Library_Project.Controllers
         // GET: User
         public ActionResult UserProfile(UserProfile profile)
         {
-            return View(model:profile);
+            UserProfile p = new UserProfile();
+            using (TheLazyNoodleEntities1 con = new TheLazyNoodleEntities1())
+            {
+                p = con.UserProfiles.Where(s => s.username == "lunarnublet").ToList().SingleOrDefault();
+                p.Roles = p.Roles.ToList();
+                p.Books = p.Books.ToList();
+            }
+            return View(p);
         }
     }
 }

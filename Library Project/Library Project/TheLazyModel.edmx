@@ -42,12 +42,28 @@ warning 6002: The table/view 'TheLazyNoodle.dbo.CheckedBooks' does not have a pr
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="BookId" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="roleName" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
         <EntityType Name="UserProfile">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK__BookAutho__Autho__534D60F1">
           <End Role="Authors" Type="Self.Authors" Multiplicity="1" />
@@ -97,11 +113,37 @@ warning 6002: The table/view 'TheLazyNoodle.dbo.CheckedBooks' does not have a pr
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserRoles_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoles_UserProfile">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="TheLazyNoodleModelStoreContainer">
           <EntitySet Name="Authors" EntityType="Self.Authors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BookAuthors" EntityType="Self.BookAuthors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CheckedBooks" EntityType="Self.CheckedBooks" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [CheckedBooks].[UserId] AS [UserId], 
@@ -123,6 +165,14 @@ warning 6002: The table/view 'TheLazyNoodle.dbo.CheckedBooks' does not have a pr
           <AssociationSet Name="FK__CheckedBo__UserI__571DF1D5" Association="Self.FK__CheckedBo__UserI__571DF1D5">
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="CheckedBooks" EntitySet="CheckedBooks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoles_Roles" Association="Self.FK_UserRoles_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoles_UserProfile" Association="Self.FK_UserRoles_UserProfile">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -154,6 +204,11 @@ warning 6002: The table/view 'TheLazyNoodle.dbo.CheckedBooks' does not have a pr
             <End Role="Book" EntitySet="Books" />
             <End Role="UserProfile" EntitySet="UserProfiles" />
           </AssociationSet>
+          <EntitySet Name="Roles" EntityType="TheLazyNoodleModel.Role" />
+          <AssociationSet Name="UserRoles" Association="TheLazyNoodleModel.UserRoles">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Author">
           <Key>
@@ -173,11 +228,25 @@ warning 6002: The table/view 'TheLazyNoodle.dbo.CheckedBooks' does not have a pr
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Books" Relationship="TheLazyNoodleModel.CheckedBooks" FromRole="UserProfile" ToRole="Book" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Roles" Relationship="TheLazyNoodleModel.UserRoles" FromRole="UserProfile" ToRole="Role" />
         </EntityType>
         <Association Name="CheckedBooks">
           <End Type="TheLazyNoodleModel.Book" Role="Book" Multiplicity="*" />
+          <End Type="TheLazyNoodleModel.UserProfile" Role="UserProfile" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="roleName" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="UserProfiles" Relationship="TheLazyNoodleModel.UserRoles" FromRole="Role" ToRole="UserProfile" />
+        </EntityType>
+        <Association Name="UserRoles">
+          <End Type="TheLazyNoodleModel.Role" Role="Role" Multiplicity="*" />
           <End Type="TheLazyNoodleModel.UserProfile" Role="UserProfile" Multiplicity="*" />
         </Association>
       </Schema>
@@ -218,7 +287,8 @@ warning 6002: The table/view 'TheLazyNoodle.dbo.CheckedBooks' does not have a pr
           <EntitySetMapping Name="UserProfiles">
             <EntityTypeMapping TypeName="TheLazyNoodleModel.UserProfile">
               <MappingFragment StoreEntitySet="UserProfile">
-                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -229,6 +299,22 @@ warning 6002: The table/view 'TheLazyNoodle.dbo.CheckedBooks' does not have a pr
             </EndProperty>
             <EndProperty Name="Book">
               <ScalarProperty Name="Id" ColumnName="BookId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="TheLazyNoodleModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="roleName" ColumnName="roleName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="UserRoles" TypeName="TheLazyNoodleModel.UserRoles" StoreEntitySet="UserRoles">
+            <EndProperty Name="UserProfile">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="Role">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

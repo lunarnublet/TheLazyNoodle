@@ -28,5 +28,6 @@ namespace Library_Project
         public virtual DbSet<Book> Books { get; set; }
         public virtual DbSet<Author> Authors { get; set; }
         public virtual DbSet<UserProfile> UserProfiles { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
     }
 }
