@@ -12,22 +12,18 @@ namespace Library_Project
     using System;
     using System.Collections.Generic;
     
-    public partial class UserProfile
+    public partial class Role
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public UserProfile()
+        public Role()
         {
-            this.Books = new HashSet<Book>();
-            this.Roles = new HashSet<Role>();
+            this.UserProfiles = new HashSet<UserProfile>();
         }
     
         public int Id { get; set; }
-        public string username { get; set; }
-        public string password { get; set; }
+        public string roleName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Book> Books { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Role> Roles { get; set; }
+        public virtual ICollection<UserProfile> UserProfiles { get; set; }
     }
 }

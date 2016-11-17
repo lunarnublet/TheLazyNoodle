@@ -12,7 +12,14 @@
 </head>
 <body>
     <div>
-        <strong>@Model.name</strong>
+        <strong>User Page</strong>
+        <strong>@Model.username</strong><br />
+        @for (int i = 0; i < Model.Roles.Count; ++i)
+        {
+            <strong>Model.Books.ElementAt(i).roleName</strong><br />
+            
+        }
+
         @for (int i = 0; i < Model.Books.Count; ++i)
         {
             <strong>Model.Books.ElementAt(i).Id</strong><br />
