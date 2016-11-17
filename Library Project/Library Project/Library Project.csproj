@@ -166,6 +166,7 @@
     <Compile Include="Book.cs">
       <DependentUpon>TheLazyModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -176,6 +177,7 @@
     <Compile Include="Role.cs">
       <DependentUpon>TheLazyModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Services\AuthenticationService.cs" />
     <Compile Include="TheLazyModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -231,7 +233,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

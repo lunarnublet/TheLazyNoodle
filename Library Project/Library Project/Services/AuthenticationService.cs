@@ -23,7 +23,7 @@ namespace Library_Project.Services
             {
                 try
                 {
-                    var user = context.UserProfiles.SingleOrDefault(u => u.name == this.userName);
+                    var user = context.UserProfiles.SingleOrDefault(u => u.username == this.userName);
 
                     if (user == null)
                     {
@@ -45,7 +45,7 @@ namespace Library_Project.Services
 
             using (TheLazyNoodleEntities1 context = new TheLazyNoodleEntities1())
             {
-                var user = context.UserProfiles.Single(u => u.name == this.userName);
+                var user = context.UserProfiles.Single(u => u.username == this.userName);
 
                 if (user.password == this.password)
                 {
