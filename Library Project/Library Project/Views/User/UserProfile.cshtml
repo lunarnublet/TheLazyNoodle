@@ -1,0 +1,25 @@
+﻿@model UserProfile
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>UserProfile</title>
+</head>
+<body>
+    <div>
+        <strong>@Model.name</strong>
+        @for (int i = 0; i < Model.Books.Count; ++i)
+        {
+            <strong>Model.Books.ElementAt(i).Id</strong><br />
+            <strong>Model.Books.ElementAt(i).Title</strong><br />
+            <strong>Model.Books.ElementAt(i).Author</strong><br />
+            <br />
+        }
+    </div>
+</body>
+</html>
