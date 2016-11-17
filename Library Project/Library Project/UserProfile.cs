@@ -12,25 +12,18 @@ namespace Library_Project
     using System;
     using System.Collections.Generic;
     
-    public partial class Book
+    public partial class UserProfile
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Book()
+        public UserProfile()
         {
-            this.Authors = new HashSet<Author>();
-            this.UserProfiles = new HashSet<UserProfile>();
+            this.Books = new HashSet<Book>();
         }
     
         public int Id { get; set; }
-        public string Title { get; set; }
-        public Nullable<int> PublishYear { get; set; }
-        public string Genre { get; set; }
-        public Nullable<int> TotalCopies { get; set; }
-        public Nullable<int> AvailableCopies { get; set; }
+        public string name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Author> Authors { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserProfile> UserProfiles { get; set; }
+        public virtual ICollection<Book> Books { get; set; }
     }
 }

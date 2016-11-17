@@ -21,6 +21,8 @@
           <Property Name="Title" Type="nvarchar" MaxLength="200" />
           <Property Name="PublishYear" Type="int" />
           <Property Name="Genre" Type="nvarchar" MaxLength="50" />
+          <Property Name="TotalCopies" Type="int" />
+          <Property Name="AvailableCopies" Type="int" />
         </EntityType>
         <EntityType Name="BookAuthors">
           <Key>
@@ -29,6 +31,23 @@
           </Key>
           <Property Name="BookId" Type="int" Nullable="false" />
           <Property Name="AuthorId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TheLazyNoodle.dbo.CheckedBooks' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CheckedBooks">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="BookId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="BookId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK__BookAutho__Autho__534D60F1">
           <End Role="Authors" Type="Self.Authors" Multiplicity="1" />
@@ -54,10 +73,41 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__CheckedBo__BookI__5812160E">
+          <End Role="Book" Type="Self.Book" Multiplicity="1" />
+          <End Role="CheckedBooks" Type="Self.CheckedBooks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CheckedBooks">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CheckedBo__UserI__571DF1D5">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="CheckedBooks" Type="Self.CheckedBooks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CheckedBooks">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="TheLazyNoodleModelStoreContainer">
           <EntitySet Name="Authors" EntityType="Self.Authors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BookAuthors" EntityType="Self.BookAuthors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CheckedBooks" EntityType="Self.CheckedBooks" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CheckedBooks].[UserId] AS [UserId], 
+    [CheckedBooks].[BookId] AS [BookId]
+    FROM [dbo].[CheckedBooks] AS [CheckedBooks]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK__BookAutho__Autho__534D60F1" Association="Self.FK__BookAutho__Autho__534D60F1">
             <End Role="Authors" EntitySet="Authors" />
             <End Role="BookAuthors" EntitySet="BookAuthors" />
@@ -65,6 +115,14 @@
           <AssociationSet Name="FK__BookAutho__BookI__52593CB8" Association="Self.FK__BookAutho__BookI__52593CB8">
             <End Role="Book" EntitySet="Book" />
             <End Role="BookAuthors" EntitySet="BookAuthors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CheckedBo__BookI__5812160E" Association="Self.FK__CheckedBo__BookI__5812160E">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="CheckedBooks" EntitySet="CheckedBooks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CheckedBo__UserI__571DF1D5" Association="Self.FK__CheckedBo__UserI__571DF1D5">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="CheckedBooks" EntitySet="CheckedBooks" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -80,6 +138,9 @@
           <Property Name="PublishYear" Type="Int32" />
           <Property Name="Genre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Authors" Relationship="TheLazyNoodleModel.BookAuthors" FromRole="Book" ToRole="Author" />
+          <Property Name="TotalCopies" Type="Int32" />
+          <Property Name="AvailableCopies" Type="Int32" />
+          <NavigationProperty Name="UserProfiles" Relationship="TheLazyNoodleModel.CheckedBooks" FromRole="Book" ToRole="UserProfile" />
         </EntityType>
         <EntityContainer Name="TheLazyNoodleEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Books" EntityType="Self.Book" />
@@ -87,6 +148,11 @@
           <AssociationSet Name="BookAuthors1" Association="TheLazyNoodleModel.BookAuthors">
             <End Role="Author" EntitySet="Authors" />
             <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <EntitySet Name="UserProfiles" EntityType="TheLazyNoodleModel.UserProfile" />
+          <AssociationSet Name="CheckedBooks" Association="TheLazyNoodleModel.CheckedBooks">
+            <End Role="Book" EntitySet="Books" />
+            <End Role="UserProfile" EntitySet="UserProfiles" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Author">
@@ -102,6 +168,18 @@
           <End Type="TheLazyNoodleModel.Author" Role="Author" Multiplicity="*" />
           <End Type="TheLazyNoodleModel.Book" Role="Book" Multiplicity="*" />
         </Association>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Books" Relationship="TheLazyNoodleModel.CheckedBooks" FromRole="UserProfile" ToRole="Book" />
+        </EntityType>
+        <Association Name="CheckedBooks">
+          <End Type="TheLazyNoodleModel.Book" Role="Book" Multiplicity="*" />
+          <End Type="TheLazyNoodleModel.UserProfile" Role="UserProfile" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -111,6 +189,8 @@
           <EntitySetMapping Name="Books">
             <EntityTypeMapping TypeName="TheLazyNoodleModel.Book">
               <MappingFragment StoreEntitySet="Book">
+                <ScalarProperty Name="AvailableCopies" ColumnName="AvailableCopies" />
+                <ScalarProperty Name="TotalCopies" ColumnName="TotalCopies" />
                 <ScalarProperty Name="Genre" ColumnName="Genre" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -133,6 +213,22 @@
             </EndProperty>
             <EndProperty Name="Author">
               <ScalarProperty Name="Id" ColumnName="AuthorId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="UserProfiles">
+            <EntityTypeMapping TypeName="TheLazyNoodleModel.UserProfile">
+              <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="CheckedBooks" TypeName="TheLazyNoodleModel.CheckedBooks" StoreEntitySet="CheckedBooks">
+            <EndProperty Name="UserProfile">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="Book">
+              <ScalarProperty Name="Id" ColumnName="BookId" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>
