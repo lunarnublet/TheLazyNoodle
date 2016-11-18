@@ -12,33 +12,7 @@ namespace Library_Project.Controllers
         [HttpGet]
         public ActionResult AddBook()
         {
-            int userId = 0;
-            try
-            {
-                userId = (int)Session["userId"];
-            }
-            catch (NullReferenceException ex)
-            {
-                userId = 0;
-            }
-            UserProfile profile = context.UserProfiles.Where(s => s.Id == userId).SingleOrDefault();
-            if (profile != null)
-            {
-                profile.Books.ToList();
-                profile.Roles.ToList();
-                if (profile.Roles.Where(r => r.roleName.Contains("Admin")).SingleOrDefault() != null)
-                {
-                    return View(model: new Book());
-                }
-                else
-                {
-                    return RedirectToAction("Login", "Authentication");
-                }
-            }
-            else
-            {
-                return RedirectToAction("Login", "Authentication");
-            }
+            return View(model: new Book());
         }
 
         [HttpPost]
