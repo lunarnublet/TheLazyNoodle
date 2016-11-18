@@ -1,0 +1,6 @@
+﻿@model UserProfile
+@Html.LabelFor(u => u.username, "Username")
+@Html.TextBoxFor(u => u.username)
+@Html.LabelFor(u => u.password, "Password")
+@Html.TextBoxFor(u => u.password, new { @type = "password" })
+ 
