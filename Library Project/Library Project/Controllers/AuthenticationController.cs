@@ -21,7 +21,7 @@ namespace Library_Project.Controllers
         {
             //if (ModelState.IsValid)
             //{
-            var auth = new AuthenticationService(user.username, user.password);
+            var auth = new LoginService(user.username, user.password);
 
             if (auth.IsValidPassword())
             {
@@ -32,6 +32,29 @@ namespace Library_Project.Controllers
             //}
 
             return View(user); //TODO(dallin): validation
+        }
+        [HttpGet]
+        public ActionResult SignUp()
+        {
+            return View(new UserProfile());
+        }
+
+        [HttpPost]
+        public ActionResult SignUp(UserProfile user)
+        {
+            var auth = new SignUpService(user.username, user.password);
+
+            try
+            {
+                auth.Persist();
+                RedirectToAction("Index", "Home");
+            }
+            catch (InvalidOperationException /*e*/)
+            {
+                // TODO(dallin): display validation errors
+            }
+
+            return View(user);
         }
     }
 }

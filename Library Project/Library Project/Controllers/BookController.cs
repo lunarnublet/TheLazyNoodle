@@ -17,27 +17,31 @@ namespace Library_Project.Controllers
             {
                 userId = (int)Session["userId"];
             }
-            catch (NullReferenceException ex)
+            catch (NullReferenceException)
             {
                 userId = 0;
             }
-            UserProfile profile = context.UserProfiles.Where(s => s.Id == userId).SingleOrDefault();
-            if (profile != null)
+
+            using (TheLazyNoodleEntities1 context = new TheLazyNoodleEntities1())
             {
-                profile.Books.ToList();
-                profile.Roles.ToList();
-                if (profile.Roles.Where(r => r.roleName.Contains("Admin")).SingleOrDefault() != null)
+                UserProfile profile = context.UserProfiles.Where(s => s.Id == userId).SingleOrDefault();
+                if (profile != null)
                 {
-                    return View(model: new Book());
+                    profile.Books.ToList();
+                    profile.Roles.ToList();
+                    if (profile.Roles.Where(r => r.roleName.Contains("Admin")).SingleOrDefault() != null)
+                    {
+                        return View(model: new Book());
+                    }
+                    else
+                    {
+                        return RedirectToAction("Login", "Authentication");
+                    }
                 }
                 else
                 {
                     return RedirectToAction("Login", "Authentication");
                 }
-            }
-            else
-            {
-                return RedirectToAction("Login", "Authentication");
             }
         }
 
