@@ -14,7 +14,9 @@ namespace Library_Project.Controllers
             UserProfile p = new UserProfile();
             using (TheLazyNoodleEntities1 con = new TheLazyNoodleEntities1())
             {
-                p = con.UserProfiles.Where(s => s.username == "lunarnublet").ToList().SingleOrDefault();
+                Session["userId"] = 1;
+                int userId = (int)Session["userId"];
+                p = con.UserProfiles.Where(s => s.Id == userId).ToList().SingleOrDefault();
                 p.Roles = p.Roles.ToList();
                 p.Books = p.Books.ToList();
             }

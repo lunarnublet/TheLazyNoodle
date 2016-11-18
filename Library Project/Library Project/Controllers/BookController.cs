@@ -12,7 +12,33 @@ namespace Library_Project.Controllers
         [HttpGet]
         public ActionResult AddBook()
         {
-            return View(model: new Book());
+            int userId = 0;
+            try
+            {
+                userId = (int)Session["userId"];
+            }
+            catch (NullReferenceException ex)
+            {
+                userId = 0;
+            }
+            UserProfile profile = context.UserProfiles.Where(s => s.Id == userId).SingleOrDefault();
+            if (profile != null)
+            {
+                profile.Books.ToList();
+                profile.Roles.ToList();
+                if (profile.Roles.Where(r => r.roleName.Contains("Admin")).SingleOrDefault() != null)
+                {
+                    return View(model: new Book());
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Authentication");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Authentication");
+            }
         }
 
         [HttpPost]
@@ -24,11 +50,12 @@ namespace Library_Project.Controllers
             {
                 using (TheLazyNoodleEntities1 context = new TheLazyNoodleEntities1())
                 {
-                    context.Books.Add(book);
-                    context.SaveChanges();
+                    
+                            context.Books.Add(book);
+                            context.SaveChanges();
                 }
-
                 result = RedirectToAction("Index", "Home");
+                
             }
 
             return result;
@@ -39,9 +66,36 @@ namespace Library_Project.Controllers
         {
             using (TheLazyNoodleEntities1 context = new TheLazyNoodleEntities1())
             {
-                Book book = new Book { Id = id };
-                context.Entry(book).State = System.Data.Entity.EntityState.Deleted;
-                context.SaveChanges();
+                int userId = 0;
+                try
+                {
+                    userId = (int)Session["userId"];
+                }
+                catch (NullReferenceException ex)
+                {
+                    userId = 0;
+                }
+                UserProfile profile = context.UserProfiles.Where(s => s.Id == userId).SingleOrDefault();
+                if (profile != null)
+                {
+                    profile.Books.ToList();
+                    profile.Roles.ToList();
+                    if (profile.Roles.Where(r => r.roleName.Contains("Admin")).SingleOrDefault() != null)
+                    {
+                        Book book = new Book { Id = id };
+                        context.Entry(book).State = System.Data.Entity.EntityState.Deleted;
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        return RedirectToAction("Login", "Authentication");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Authentication");
+                }
+                
             }
 
             return RedirectToAction("Index", "Home");
@@ -52,7 +106,33 @@ namespace Library_Project.Controllers
             Book bookToEdit = null;
             using (TheLazyNoodleEntities1 context = new TheLazyNoodleEntities1())
             {
-                bookToEdit = context.Books.Include("Authors").Where(b => b.Id == id).Single();
+                int userId = 0;
+                try
+                {
+                    userId = (int)Session["userId"];
+                }
+                catch (NullReferenceException ex)
+                {
+                    userId = 0;
+                }
+                UserProfile profile = context.UserProfiles.Where(s => s.Id == userId).SingleOrDefault();
+                if (profile != null)
+                {
+                    profile.Books.ToList();
+                    profile.Roles.ToList();
+                    if (profile.Roles.Where(r => r.roleName.Contains("Admin")).SingleOrDefault() != null)
+                    {
+                        bookToEdit = context.Books.Include("Authors").Where(b => b.Id == id).Single();
+                    }
+                    else
+                    {
+                        return RedirectToAction("Login", "Authentication");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Authentication");
+                }
             }
 
             return View(model: bookToEdit);
