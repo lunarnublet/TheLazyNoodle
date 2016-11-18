@@ -13,17 +13,18 @@
 <body>
     <div>
         <strong>User Page</strong><br />
-        <strong>@Model.username</strong><br />
+        <strong>Username: </strong>@Model.username<br />
+        <strong>Roles:</strong><br />
         @for (int i = 0; i < Model.Roles.Count; ++i)
         {
-            <strong>@Model.Roles.ElementAt(i).roleName</strong><br />
+            @Model.Roles.ElementAt(i).roleName<br />
             
         }
-
+        <strong>Books: </strong><br />
         @for (int i = 0; i < Model.Books.Count; ++i)
         {
-            <strong>@Model.Books.ElementAt(i).Id</strong><br />
-            <strong>@Model.Books.ElementAt(i).Title</strong><br />
+            @:Book Id: @Model.Books.ElementAt(i).Id<br />
+            @:Title: @Model.Books.ElementAt(i).Title<br />
             <br />
         }
     </div>
