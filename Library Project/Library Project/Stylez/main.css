@@ -18,7 +18,26 @@ tr:nth-child(odd) {
     background-color: #d2d2d2;
 }
 
+#tableTitle {
+    background-color: #008C9E;
+    color: white;
+}
+
 th {
     background-color: #4CAF50;
     color: white;
 }
+
+h1 
+	{
+		font-family: Calibri;
+		font-size: 28pt;
+		padding-top: .5em;
+		padding-bottom: .5em;
+	}
+
+h2 
+	{
+		font-size: 18pt;
+		font-family: Calibri;
+	}
