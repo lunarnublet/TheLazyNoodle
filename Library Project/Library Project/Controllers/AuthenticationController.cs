@@ -6,15 +6,32 @@ using System.Web.Mvc;
 
 namespace Library_Project.Controllers
 {
+    using Services;
     public class AuthenticationController : Controller
     {
         // GET: Authentication
-        public ActionResult Login(string userName, string password)
+        [HttpGet]
+        public ActionResult Login()
         {
-            using (TheLazyNoodleEntities1 context = new TheLazyNoodleEntities1())
+            return View(new UserProfile());
+        }
+
+        [HttpPost]
+        public ActionResult Login(UserProfile user)
+        {
+            //if (ModelState.IsValid)
+            //{
+            var auth = new AuthenticationService(user.username, user.password);
+
+            if (auth.IsValidPassword())
             {
+                Session["userId"] = auth.GetUserId();
+                return RedirectToAction("Index", "Home");
             }
-            return View();
+
+            //}
+
+            return View(user); //TODO(dallin): validation
         }
     }
 }

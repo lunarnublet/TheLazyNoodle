@@ -1,0 +1,22 @@
+﻿@model UserProfile
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("Login", "Authentication", FormMethod.Post))
+        {
+            @Html.EditorFor(u => u)
+            <input type="submit" value="Login" />
+        }
+    </div>
+</body>
+</html>
