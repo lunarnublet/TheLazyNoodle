@@ -9,24 +9,46 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>UserProfile</title>
+    <link rel="stylesheet" href="~/Stylez/main.css" />
 </head>
 <body>
+    <div class=header>
+        <h1 class=header-heading>User Page</h1>
+    </div>
+    <div class=nav-bar>
+        <ul class=nav>
+            <li><a href="~/Home/Index">Home</a></li>
+            <li><a href="~/Home/Search">Search</a></li>
+            <li><a href="~/User/UserProfile">MyProfile</a></li>
+            <li>@Html.ActionLink("Add Book", "AddBook", "Book")</li>
+            <li>@Html.ActionLink("Login", "Login", "Authentication")</li>
+        </ul>
+    </div>
     <div>
-        <strong>User Page</strong><br />
-        <strong>Username: </strong>@Model.username<br />
-        <strong>Roles:</strong><br />
+        <h2>Username: </h2>@Model.username<br/><br/>
+        <h2>Roles:</h2>
         @for (int i = 0; i < Model.Roles.Count; ++i)
         {
-            @Model.Roles.ElementAt(i).roleName<br />
+            @Model.Roles.ElementAt(i).roleName
             
         }
-        <strong>Books: </strong><br />
-        @for (int i = 0; i < Model.Books.Count; ++i)
-        {
-            @:Book Id: @Model.Books.ElementAt(i).Id<br />
-            @:Title: @Model.Books.ElementAt(i).Title<br />
-            <br />
-        }
-    </div>
+        <br/><br/>
+        <table>
+            <tr>
+                <th colspan="2" id="tableTitle">Books</th>
+            </tr>
+            <tr>
+                <th>Book Id</th>
+                <th>Title</th>
+            </tr>
+            @for (int i = 0; i < Model.Books.Count; ++i)
+            {
+                <tr>
+                <td>@Model.Books.ElementAt(i).Id</td>
+                <td>@Model.Books.ElementAt(i).Title</td>
+                </tr>
+            }
+        </table>
+</div>
 </body>
 </html>

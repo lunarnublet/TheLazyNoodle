@@ -56,5 +56,18 @@ namespace Library_Project.Services
             return isValid;
         }
 
+        public int GetUserId()
+        {
+            int id = -1;
+            using (TheLazyNoodleEntities1 context = new TheLazyNoodleEntities1())
+            {
+                var user = context.UserProfiles.Single(u => u.username == this.userName);
+
+                id = user.Id;
+            }
+
+            return id;
+        }
+
     }
 }

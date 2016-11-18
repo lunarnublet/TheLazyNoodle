@@ -1,4 +1,4 @@
-﻿@model Book
+﻿@model UserProfile
 @{
     Layout = null;
 }
@@ -8,12 +8,12 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>AddBook</title>
+    <title>Login</title>
     <link rel="stylesheet" href="~/Stylez/main.css" />
 </head>
 <body>
     <div class=header>
-        <h1 class=header-heading>Add Book</h1>
+        <h1 class=header-heading>Login Page</h1>
     </div>
     <div class=nav-bar>
         <ul class=nav>
@@ -25,15 +25,10 @@
         </ul>
     </div>
     <div>
-        @using (Html.BeginForm("AddBook", "Book", FormMethod.Post))
+        @using (Html.BeginForm("Login", "Authentication", FormMethod.Post))
         {
-            @Html.Partial("_EditBookPartialView", Model)
-            @Html.HiddenFor(model => model.Id)
-            @*foreach (Author a in Model.Authors)
-            {
-                @Html.Partial("_EditAuthorPartialView", a)
-            }*@
-            <input type="submit" value="Save" />
+            @Html.EditorFor(u => u)
+            <input type="submit" value="Login" />
         }
     </div>
 </body>
