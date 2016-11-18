@@ -12,11 +12,17 @@
     <link rel="stylesheet" href="~/Stylez/main.css" />
 </head>
 <body>
-    <nav>
-        <a href="~/Home/Search">Search</a>
-        <a href="~/User/UserProfile">MyProfile</a>
-        @Html.ActionLink("Add Book", "AddBook", "Book")
-    </nav>
+    <div class=header>
+        <h1 class=header-heading>Library Database</h1>
+    </div>
+    <div class=nav-bar>
+        <ul class=nav>
+            <li><a href="~/Home/Index">Home</a></li>
+            <li><a href="~/Home/Search">Search</a></li>
+            <li><a href="~/User/UserProfile">MyProfile</a></li>
+            <li>@Html.ActionLink("Add Book", "AddBook", "Book")</li>
+        </ul>
+    </div>
     <table>
         <tr>
             <th>ID</th>

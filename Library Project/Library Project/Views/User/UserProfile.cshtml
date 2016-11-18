@@ -12,8 +12,18 @@
     <link rel="stylesheet" href="~/Stylez/main.css" />
 </head>
 <body>
+    <div class=header>
+        <h1 class=header-heading>User Page</h1>
+    </div>
+    <div class=nav-bar>
+        <ul class=nav>
+            <li><a href="~/Home/Index">Home</a></li>
+            <li><a href="~/Home/Search">Search</a></li>
+            <li><a href="~/User/UserProfile">MyProfile</a></li>
+            <li>@Html.ActionLink("Add Book", "AddBook", "Book")</li>
+        </ul>
+    </div>
     <div>
-        <h1>User Page</h1>
         <h2>Username: </h2>@Model.username<br/><br/>
         <h2>Roles:</h2>
         @for (int i = 0; i < Model.Roles.Count; ++i)
