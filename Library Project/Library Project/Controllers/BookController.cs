@@ -86,7 +86,7 @@ namespace Library_Project.Controllers
                     profile.Roles.ToList();
                     if (profile.Roles.Where(r => r.roleName.Contains("Admin")).SingleOrDefault() != null)
                     {
-                        Book book = new Book { Id = id };
+                        Book book = context.Books.Where(s => s.Id == id).SingleOrDefault();
                         context.Entry(book).State = System.Data.Entity.EntityState.Deleted;
                         context.SaveChanges();
                     }
