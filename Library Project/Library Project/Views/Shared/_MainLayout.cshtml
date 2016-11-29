@@ -1,0 +1,28 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/Stylez/main.css" />
+</head>
+<body>
+    @RenderSection("heading", false)
+    <div class=nav-bar>
+        <ul class=nav>
+            <li><a href="~/Home/Index">Home</a></li>
+            <li><a href="~/Home/Search">Search</a></li>
+            <li><a href="~/User/UserProfile">MyProfile</a></li>
+            <li>@Html.ActionLink("Add Book", "AddBook", "Book")</li>
+            <li>@Html.ActionLink("Login", "Login", "Authentication")</li>
+        </ul>
+    </div>
+    @RenderSection("body", false);
+    @RenderBody()
+</body>
+</html>

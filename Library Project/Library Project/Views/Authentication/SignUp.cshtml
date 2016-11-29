@@ -1,16 +1,15 @@
 ﻿
 @{
-    Layout = null;
+    ViewBag.Title = "Sign Up";
 }
 
-<!DOCTYPE html>
+@section heading {
+    <div class=header>
+        <h1 class=header-heading>Sign Up</h1>
+    </div>
+}
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Sign Up</title>
-</head>
-<body>
+@section body {
     <div>
         @using (Html.BeginForm("SignUp", "Authentication", FormMethod.Post))
         {
@@ -18,5 +17,4 @@
             <input type="submit" value="Sign Up" />
         }
     </div>
-</body>
-</html>
+}
