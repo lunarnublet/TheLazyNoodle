@@ -41,6 +41,7 @@
                 <td>
                     @Html.ActionLink("Edit", "EditBook", "Book", new { id = book.Id }, null)
                     @Html.ActionLink("Delete", "DeleteBook", "Book", new { id = book.Id }, null)
+                    @Html.ActionLink("Check Out", "CheckOut", "Book", new { id = book.Id }, null)
                 </td>
             </tr>
         }

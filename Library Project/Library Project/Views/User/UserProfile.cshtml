@@ -46,6 +46,7 @@
                 <tr>
                 <td>@Model.Books.ElementAt(i).Id</td>
                 <td>@Model.Books.ElementAt(i).Title</td>
+                <td>@Html.ActionLink("Return", "Return", "Book", new { id = Model.Books.ElementAt(i).Id }, null)</td>
                 </tr>
             }
         </table>

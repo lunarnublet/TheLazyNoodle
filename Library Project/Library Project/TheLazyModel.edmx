@@ -32,8 +32,6 @@
           <Property Name="BookId" Type="int" Nullable="false" />
           <Property Name="AuthorId" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'TheLazyNoodle.dbo.CheckedBooks' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CheckedBooks">
           <Key>
             <PropertyRef Name="UserId" />
@@ -141,15 +139,10 @@ warning 6002: The table/view 'TheLazyNoodle.dbo.CheckedBooks' does not have a pr
           <EntitySet Name="Authors" EntityType="Self.Authors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BookAuthors" EntityType="Self.BookAuthors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CheckedBooks" EntityType="Self.CheckedBooks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CheckedBooks" EntityType="Self.CheckedBooks" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [CheckedBooks].[UserId] AS [UserId], 
-    [CheckedBooks].[BookId] AS [BookId]
-    FROM [dbo].[CheckedBooks] AS [CheckedBooks]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK__BookAutho__Autho__534D60F1" Association="Self.FK__BookAutho__Autho__534D60F1">
             <End Role="Authors" EntitySet="Authors" />
             <End Role="BookAuthors" EntitySet="BookAuthors" />

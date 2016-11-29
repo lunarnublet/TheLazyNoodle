@@ -105,6 +105,91 @@ namespace Library_Project.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public ActionResult CheckOut(int id)
+        {
+            using (TheLazyNoodleEntities1 context = new TheLazyNoodleEntities1())
+            {
+                int userId = 0;
+                try
+                {
+                    userId = (int)Session["userId"];
+                }
+                catch (NullReferenceException ex)
+                {
+                    userId = 0;
+                }
+                UserProfile profile = context.UserProfiles.Where(s => s.Id == userId).SingleOrDefault();
+                if (profile != null)
+                {
+                    profile.Books.ToList();
+                    profile.Roles.ToList();
+                    if (profile.Roles.Where(r => r.roleName.Contains("Admin")).SingleOrDefault() != null)
+                    {
+                        Book book = context.Books.Where(s => s.Id == id).SingleOrDefault();
+                        if (book.AvailableCopies > 0)
+                        {
+                            UserProfile user = context.UserProfiles.Where(u => u.Id == userId).Single();
+                            book.AvailableCopies -= 1;
+                            user.Books.Add(book);
+                            context.SaveChanges();
+                        }
+                    }
+                    else
+                    {
+                        return RedirectToAction("Login", "Authentication");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Authentication");
+                }
+
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Return(int id)
+        {
+            using (TheLazyNoodleEntities1 context = new TheLazyNoodleEntities1())
+            {
+                int userId = 0;
+                try
+                {
+                    userId = (int)Session["userId"];
+                }
+                catch (NullReferenceException ex)
+                {
+                    userId = 0;
+                }
+                UserProfile profile = context.UserProfiles.Where(s => s.Id == userId).SingleOrDefault();
+                if (profile != null)
+                {
+                    profile.Books.ToList();
+                    profile.Roles.ToList();
+                    if (profile.Roles.Where(r => r.roleName.Contains("Admin")).SingleOrDefault() != null)
+                    {
+                        Book book = context.Books.Where(s => s.Id == id).SingleOrDefault();
+                        UserProfile user = context.UserProfiles.Where(u => u.Id == userId).Single();
+                        book.AvailableCopies += 1;
+                        user.Books.Remove(book);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        return RedirectToAction("Login", "Authentication");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Authentication");
+                }
+
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
         public ActionResult EditBook(int id)
         {
             Book bookToEdit = null;
