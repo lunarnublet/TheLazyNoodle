@@ -1,29 +1,15 @@
 ﻿@model UserProfile
 @{
-    Layout = null;
+    ViewBag.Title = "User Profile";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>UserProfile</title>
-    <link rel="stylesheet" href="~/Stylez/main.css" />
-</head>
-<body>
+@section heading {
     <div class=header>
         <h1 class=header-heading>User Page</h1>
     </div>
-    <div class=nav-bar>
-        <ul class=nav>
-            <li><a href="~/Home/Index">Home</a></li>
-            <li><a href="~/Home/Search">Search</a></li>
-            <li><a href="~/User/UserProfile">MyProfile</a></li>
-            <li>@Html.ActionLink("Add Book", "AddBook", "Book")</li>
-            <li>@Html.ActionLink("Login", "Login", "Authentication")</li>
-        </ul>
-    </div>
+}
+
+@section body {
     <div>
         <h2>Username: </h2>@Model.username<br/><br/>
         <h2>Roles:</h2>
@@ -49,6 +35,5 @@
                 </tr>
             }
         </table>
-</div>
-</body>
-</html>
+    </div>
+}

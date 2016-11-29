@@ -1,29 +1,15 @@
 ﻿@model List<Book>
 @{
-    Layout = null;
+    ViewBag.Title = "Index";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-    <link rel="stylesheet" href="~/Stylez/main.css" />
-</head>
-<body>
+@section heading{
     <div class=header>
         <h1 class=header-heading>Library Database</h1>
     </div>
-    <div class=nav-bar>
-        <ul class=nav>
-            <li><a href="~/Home/Index">Home</a></li>
-            <li><a href="~/Home/Search">Search</a></li>
-            <li><a href="~/User/UserProfile">MyProfile</a></li>
-            <li>@Html.ActionLink("Add Book", "AddBook", "Book")</li>
-            <li>@Html.ActionLink("Login", "Login", "Authentication")</li>
-        </ul>
-    </div>
+}
+
+@section body{
     <table>
         <tr>
             <th>ID</th>
@@ -35,7 +21,7 @@
             <th>Available Copies</th>
         </tr>
         @foreach (Book book in Model)
-            {
+        {
             <tr>
                 @Html.Partial("_DisplayBookPartialView", book)
                 <td>
@@ -45,5 +31,5 @@
             </tr>
         }
     </table>
-</body>
-</html>
+}
+

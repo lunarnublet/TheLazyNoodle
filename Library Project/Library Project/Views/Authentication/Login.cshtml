@@ -1,29 +1,14 @@
 ﻿@model UserProfile
 @{
-    Layout = null;
+    ViewBag.Title = "Login";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Login</title>
-    <link rel="stylesheet" href="~/Stylez/main.css" />
-</head>
-<body>
+@section heading {
     <div class=header>
         <h1 class=header-heading>Login Page</h1>
     </div>
-    <div class=nav-bar>
-        <ul class=nav>
-            <li><a href="~/Home/Index">Home</a></li>
-            <li><a href="~/Home/Search">Search</a></li>
-            <li><a href="~/User/UserProfile">MyProfile</a></li>
-            <li>@Html.ActionLink("Add Book", "AddBook", "Book")</li>
-            <li>@Html.ActionLink("Login", "Login", "Authentication")</li>
-        </ul>
-    </div>
+}
+@section body {
     <div>
         @using (Html.BeginForm("Login", "Authentication", FormMethod.Post))
         {
@@ -31,5 +16,4 @@
             <input type="submit" value="Login" />
         }
     </div>
-</body>
-</html>
+}
