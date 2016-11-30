@@ -123,8 +123,6 @@ namespace Library_Project.Controllers
                 {
                     profile.Books.ToList();
                     profile.Roles.ToList();
-                    if (profile.Roles.Where(r => r.roleName.Contains("Admin")).SingleOrDefault() != null)
-                    {
                         Book book = context.Books.Where(s => s.Id == id).SingleOrDefault();
                         if (book.AvailableCopies > 0)
                         {
@@ -133,11 +131,6 @@ namespace Library_Project.Controllers
                             user.Books.Add(book);
                             context.SaveChanges();
                         }
-                    }
-                    else
-                    {
-                        return RedirectToAction("Login", "Authentication");
-                    }
                 }
                 else
                 {
@@ -167,18 +160,11 @@ namespace Library_Project.Controllers
                 {
                     profile.Books.ToList();
                     profile.Roles.ToList();
-                    if (profile.Roles.Where(r => r.roleName.Contains("Admin")).SingleOrDefault() != null)
-                    {
                         Book book = context.Books.Where(s => s.Id == id).SingleOrDefault();
                         UserProfile user = context.UserProfiles.Where(u => u.Id == userId).Single();
                         book.AvailableCopies += 1;
                         user.Books.Remove(book);
                         context.SaveChanges();
-                    }
-                    else
-                    {
-                        return RedirectToAction("Login", "Authentication");
-                    }
                 }
                 else
                 {
