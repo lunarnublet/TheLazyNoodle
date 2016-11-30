@@ -25,6 +25,7 @@ namespace Library_Project.Controllers
 
             if (auth.IsValidPassword())
             {
+                System.Web.HttpContext.Current.Session["userId"] = auth.GetUserId();
                 Session["userId"] = auth.GetUserId();
                 return RedirectToAction("Index", "Home");
             }
@@ -47,7 +48,7 @@ namespace Library_Project.Controllers
             try
             {
                 auth.Persist();
-                RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home");
             }
             catch (InvalidOperationException /*e*/)
             {
@@ -55,6 +56,12 @@ namespace Library_Project.Controllers
             }
 
             return View(user);
+        }
+
+        public ActionResult Logout()
+        {
+            Session["userId"] = null;
+            return RedirectToAction("Index", "Home");
         }
     }
 }

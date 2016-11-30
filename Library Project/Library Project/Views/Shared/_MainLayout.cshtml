@@ -19,7 +19,8 @@
             <li><a href="~/Home/Search">Search</a></li>
             <li><a href="~/User/UserProfile">MyProfile</a></li>
             <li>@Html.ActionLink("Add Book", "AddBook", "Book")</li>
-            <li>@Html.ActionLink("Login", "Login", "Authentication")</li>
+            @*<li>@Html.ActionLink("Login", "Login", "Authentication")</li>*@
+            @Html.Partial("_LoginPartialView")
         </ul>
     </div>
     @RenderSection("body", false);

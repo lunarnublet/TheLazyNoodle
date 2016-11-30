@@ -1,0 +1,9 @@
+﻿@if (Session["userId"] == null || (int)Session["userId"] == 0)
+{
+    <li>@Html.ActionLink("Login", "Login", "Authentication")</li>
+    <li>@Html.ActionLink("Register", "SignUp", "Authentication")</li>
+}
+else
+{
+    <li>@Html.ActionLink("Logout", "Logout", "Authentication")</li>
+}

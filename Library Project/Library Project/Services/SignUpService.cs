@@ -61,11 +61,18 @@ namespace Library_Project.Services
             // TODO(dallin): class member context?
             using (TheLazyNoodleEntities1 context = new TheLazyNoodleEntities1())
             {
-                context.UserProfiles.Add(new UserProfile()
+                var role = context.Roles.SingleOrDefault(x => x.roleName == "General");
+
+                var user = new UserProfile()
                 {
                     username = this.username,
-                    password = this.password
-                });
+                    password = this.password,
+                    Roles = new List<Role>() { role }
+                    
+                };
+
+                context.UserProfiles.Add(user);
+                context.SaveChanges();
             }
         }
     }
