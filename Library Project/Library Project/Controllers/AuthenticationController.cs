@@ -63,5 +63,10 @@ namespace Library_Project.Controllers
             Session["userId"] = null;
             return RedirectToAction("Index", "Home");
         }
+
+        public ActionResult AdminRestricted()
+        {
+            return View();
+        }
     }
 }

@@ -35,7 +35,7 @@ namespace Library_Project.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Login", "Authentication");
+                        return RedirectToAction("AdminRestricted", "Authentication");
                     }
                 }
                 else
@@ -92,7 +92,7 @@ namespace Library_Project.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Login", "Authentication");
+                        return RedirectToAction("AdminRestricted", "Authentication");
                     }
                 }
                 else
@@ -201,7 +201,7 @@ namespace Library_Project.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Login", "Authentication");
+                        return RedirectToAction("AdminRestricted", "Authentication");
                     }
                 }
                 else
