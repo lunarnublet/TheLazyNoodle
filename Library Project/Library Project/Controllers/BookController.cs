@@ -173,7 +173,7 @@ namespace Library_Project.Controllers
 
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("UserProfile", "User");
         }
 
         public ActionResult EditBook(int id)
